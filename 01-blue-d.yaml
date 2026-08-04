@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-blue
+  labels:
+    version: blue
+    app: nginx
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      version: blue
+      app: nginx
+  # Pod
+  template:
+    metadata:
+      labels:
+        version: blue
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: joindevops/blue-green:0.1.0
+        ports:
+        - containerPort: 80
+---
